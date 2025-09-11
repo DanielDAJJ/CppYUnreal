@@ -95,5 +95,60 @@ class Jugador : public Personaje {
 };
 
 class Enemigo : public Personaje {
-
+    private:
+        int curaciones;
+    
+    public:
+        Enemigo(const string& n, int v, int aMin, int aMax, int d, int c = 1)
+            : Personaje(n, v, aMin, aMax, d), curaciones(c) {}
+    
+        void Accion(Personaje &objetivo) override {
+            int prob = rand() % 10;
+            if ((vida < (vidaMax / 3)) && (curaciones > 0) && (prob < 40))
+            {
+                int healAmount = 15;
+                CurarCantidad(healAmount);
+                curaciones--;
+                cout << nombre << " utiliza curacion. Vida actual: " << vida << " | Curaciones restantes: " << curaciones << endl;
+            }
+            else{
+                Atacar(objetivo);
+            }
+        }
 };
+
+int main() {
+    srand(static_cast<unsigned int>(time(0)));
+
+    Jugador player("Player", 100, 5, 25, 10, 2);
+    Enemigo goblin("Goblin", 100, 5, 20, 8, 1);
+
+    Personaje* pJugador = &player;
+    Personaje* pEnemigo = &goblin;
+
+    cout << "Comienza el combate" << endl;
+
+    int turno = 1;
+    while (pJugador->estaVivo() && pEnemigo->estaVivo())
+    {
+        cout << "\n======== Turno " << turno++ << " ===========" << endl;
+        cout << pJugador->getNombre() << ": " << pJugador->getVida() << "/" << pJugador->getVidaMax() << " | " << pEnemigo->getNombre() << ": " << pEnemigo->getVida() << "/" << pEnemigo->getVidaMax() << endl;
+
+        pJugador->Accion(*pEnemigo);
+        if (!pEnemigo->estaVivo())
+        {
+            cout << pEnemigo->getNombre() << " ha sido derrotado." << endl;
+            break;
+        }
+        
+        pEnemigo->Accion(*pJugador);
+        if (!pJugador->estaVivo())
+        {
+            cout << pJugador->getNombre() << " ha sido derrotado." << endl;
+            break;
+        }
+    }
+
+    cout << "\n======= Fin del combate =========" << endl;
+    return 0;
+}
