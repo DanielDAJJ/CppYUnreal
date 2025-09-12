@@ -1,12 +1,11 @@
 CXX = g++
 CXXFLAGS = -Iinclude -std=c++17 -g
-SRCS = $(wildcar src/*.cpp)
+SRC = $(wildcard src/*.cpp)
+OBJ = $(SRC:.cpp=.o)
 TARGET = JuegoPOO.exe
 
-all: $(TARGET)
-
-$(TARGET):
-	$(CXX) $(CXXFLAGS) $(SRCS) -o $(TARGET)
+$(TARGET): $(OBJ)
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $(TARGET)
 
 clean:
-	rm -f $(TARGET)
+	del src\*.o $(TARGET)
