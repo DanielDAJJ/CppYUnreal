@@ -5,13 +5,15 @@ using namespace std;
 Personaje::Personaje(const string& n, int v, int aMin, int aMax, int d) : nombre(n), vida(v), vidaMax (v), ataqueMinimo (aMin), ataqueMaximo(aMax), defensa(d) {}
 
 void Personaje::RecibirDano(int dano){
-    dano -= defensa;
-    vida -= dano;
+    int danoEfectivo = dano - defensa;
+    if (danoEfectivo < 0) danoEfectivo = 0;
+    vida -= danoEfectivo;
     if (vida < 0) vida = 0;
 }
 
 void Personaje::Curarse(){
-    vida += 20;
+    int healAmount = 20;
+    vida += healAmount;
     if (vida > vidaMax) vida = vidaMax; 
 }
 
