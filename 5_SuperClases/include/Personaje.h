@@ -26,6 +26,7 @@ public:
     
     virtual void Atacar(Personaje& objetivo) = 0;
     void RecibirDano(int dano);
+    virtual void Curarse();
 };
 
 #endif
