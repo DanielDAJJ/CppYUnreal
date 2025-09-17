@@ -52,7 +52,7 @@ int main(){
         
         cout << "\nEstado del jugador: " << jugador->getName() << " HP: " << jugador->getVida() << "/" << jugador->getVidaMax() << " Mana: " << jugador->getMana() << "/" << jugador->getManaMax() << "\n";
         cout << "Enemigos:\n";
-        for(size_t i = 0 < enemigos.size(); ++i){
+        for(size_t i = 0 < enemigos.size(); ++i;){
             cout << (i+1) << ". " << enemigos[i]->getName() << "-" << enemigos[i]->getVida() << "/" << enemigos[i]->getVidaMax() << "\n";
             if (!enemigos[i]->estaVivo())
             {
@@ -76,7 +76,7 @@ int main(){
             }
             else
             {
-                cout << "Objetivo invalido o ya muerto. Pierdes el turno\n"
+                cout << "Objetivo invalido o ya muerto. Pierdes el turno\n";
             }
         }
         else if (opcion == 2)
